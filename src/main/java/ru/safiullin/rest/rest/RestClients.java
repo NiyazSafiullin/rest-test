@@ -31,7 +31,7 @@ public class RestClients {
         return new ResponseEntity<Clients>(clients,HttpStatus.OK);
     }
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Clients> saveCustomer(@RequestBody @Validated Clients clients) {
+    public ResponseEntity<Clients> saveClient(@RequestBody @Validated Clients clients) {
         HttpHeaders headers = new HttpHeaders();
 
         if (clients == null) {
@@ -42,7 +42,7 @@ public class RestClients {
         return new ResponseEntity<Clients>(clients, headers, HttpStatus.CREATED);
     }
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Clients>> getAllCustomers() {
+    public ResponseEntity<List<Clients>> getAllClients() {
         List<Clients> clients = this.clientService.getAll();
 
         if (clients.isEmpty()) {
@@ -52,7 +52,7 @@ public class RestClients {
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Clients> updateCustomer(@RequestBody @Validated Clients clients, UriComponentsBuilder builder) {
+    public ResponseEntity<Clients> updateClient(@RequestBody @Validated Clients clients, UriComponentsBuilder builder) {
         HttpHeaders headers = new HttpHeaders();
 
         if (clients == null) {
@@ -65,7 +65,7 @@ public class RestClients {
     }
 
 //    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public ResponseEntity<Clients> deleteCustomer(@PathVariable("id") Long id) {
+//    public ResponseEntity<Clients> deleteClient(@PathVariable("id") Long id) {
 //        Clients clients = this.clientService.getById(id);
 //
 //        if (clients == null) {

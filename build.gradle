@@ -26,6 +26,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.18'
 	implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.30'
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
 
 }
 
