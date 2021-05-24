@@ -1,5 +1,6 @@
 package ru.safiullin.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Table(name = "clients")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Clients {
 
     @Column(name = "name")
