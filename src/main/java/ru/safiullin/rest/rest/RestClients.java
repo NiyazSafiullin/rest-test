@@ -64,17 +64,17 @@ public class RestClients {
         return new ResponseEntity<>(clients, headers, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public ResponseEntity<Clients> deleteCustomer(@PathVariable("id") Long id) {
-//        Clients clients = this.clientService.getById(id);
-//
-//        if (clients == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//
-//        this.clientService.delete(id);
-//
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Clients> deleteCustomer(@PathVariable("id") Long id) {
+        Clients clients = this.clientService.getById(id);
+
+        if (clients == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        this.clientService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

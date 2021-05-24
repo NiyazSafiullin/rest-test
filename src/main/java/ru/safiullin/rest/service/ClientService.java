@@ -8,6 +8,6 @@ public interface ClientService {
     List<Clients> getAll();
     Clients getById(Long id);
     void save(Clients clients);
-   // void delete(Long id);
+    void delete(Long id);
 
 }
