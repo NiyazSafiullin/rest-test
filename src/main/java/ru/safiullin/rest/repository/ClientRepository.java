@@ -5,4 +5,5 @@ import ru.safiullin.rest.model.Clients;
 
 public interface ClientRepository extends JpaRepository<Clients, Long> {
 
+    void delete(Long id);
 }

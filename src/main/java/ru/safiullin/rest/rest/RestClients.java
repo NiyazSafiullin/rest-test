@@ -22,14 +22,16 @@ public class RestClients {
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Clients> getClients(@PathVariable("id") Long clientId) {
          if (clientId == null) {
-            return new ResponseEntity<Clients>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         Clients clients = this.clientService.getById(clientId);
         if (clients == null) {
-            return new ResponseEntity<Clients>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Clients>(clients,HttpStatus.OK);
+        return new ResponseEntity<>(clients,HttpStatus.OK);
     }
+
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Clients> saveClient(@RequestBody @Validated Clients clients) {
         HttpHeaders headers = new HttpHeaders();
@@ -41,6 +43,7 @@ public class RestClients {
         this.clientService.save(clients);
         return new ResponseEntity<Clients>(clients, headers, HttpStatus.CREATED);
     }
+
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Clients>> getAllClients() {
         List<Clients> clients = this.clientService.getAll();
@@ -51,6 +54,7 @@ public class RestClients {
 
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
+
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Clients> updateClient(@RequestBody @Validated Clients clients, UriComponentsBuilder builder) {
         HttpHeaders headers = new HttpHeaders();

@@ -1,24 +1,28 @@
 package ru.safiullin.rest.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.safiullin.rest.model.Managers;
+import ru.safiullin.rest.repository.ManagerRepository;
 
 import java.util.List;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
+    @Autowired
+    private ManagerRepository managerRepository;
     @Override
     public List<Managers> getAll() {
-        return null;
+        return managerRepository.findAll();
     }
 
     @Override
     public Managers getById(Long id) {
-        return null;
+        return managerRepository.getById(id);
     }
 
     @Override
     public void save(Managers managers) {
-
+        managerRepository.save(managers);
     }
 }
