@@ -3,8 +3,10 @@ package ru.safiullin.rest.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -24,5 +26,10 @@ public class Managers {
 
     @Column(name = "firstname")
     private String firstname;
+
+    @CreationTimestamp
+    private LocalDateTime createdDateTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Clients clients;
 
 }

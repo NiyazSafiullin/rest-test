@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import ru.safiullin.rest.model.Clients;
 import ru.safiullin.rest.repository.ClientRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Slf4j
 @Service
+@Transactional
 public class ClientServiceImpl implements ClientService {
 
     @Autowired

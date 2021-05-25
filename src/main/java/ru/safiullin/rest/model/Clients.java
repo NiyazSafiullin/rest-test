@@ -28,5 +28,8 @@ public class Clients {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String role="ROLE_USER";
+    private boolean locked=false;
+
 
 }
