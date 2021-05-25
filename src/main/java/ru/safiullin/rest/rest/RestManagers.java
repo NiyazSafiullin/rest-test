@@ -2,17 +2,15 @@ package ru.safiullin.rest.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.safiullin.rest.dto.ClientDto;
-import ru.safiullin.rest.dto.ManagerDto;
-import ru.safiullin.rest.mappers.MapperUtil;
 import ru.safiullin.rest.model.Clients;
 import ru.safiullin.rest.model.Managers;
 import ru.safiullin.rest.service.ManagerService;
-import springfox.documentation.swagger2.mappers.ModelMapper;
 
 import java.util.List;
 
@@ -23,8 +21,6 @@ public class RestManagers {
     @Autowired
     private ManagerService managerService;
 
-    @Autowired
-    private ModelMapper modelMapper;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Managers>> getAllManagers() {
@@ -37,19 +33,42 @@ public class RestManagers {
         return new ResponseEntity<>(managers, HttpStatus.OK);
     }
 
-    @GetMapping("/all")
-    public List<ManagerDto> findAll() {
-        List<Managers> managers = managerService.getAll();
-        return MapperUtil.convertList(managers, this::convertToManagerDto);
+    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Clients> getManagers(@PathVariable("id") Long managerId) {
+        if (managerId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+       Managers managers = this.managerService.getById(managerId);
+        if (managers == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(managers,HttpStatus.OK);
     }
 
-    private ManagerDto convertToManagerDto(Managers managers) {
-        ManagerDto managerDto = modelMapper.mapModels(managers, ManagerDto.class);
-        managerDto.setFirstname(convertToClientDto(managers.getFirstname()));
-        return managerDto;
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Managers> saveManager(@RequestBody @Validated Managers managers) {
+        HttpHeaders headers = new HttpHeaders();
+
+        if (managers == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        this.managerService.save(managers);
+        return new ResponseEntity<>(managers, headers, HttpStatus.CREATED);
     }
-    private ClientDto convertToClientDto(Clients clients) {
-        return modelMapper.mapModels(clients, ClientDto.class);
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Managers> deleteManager(@PathVariable("id") Long id) {
+        Managers managers = this.managerService.getById(id);
+
+        if (managers == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        this.managerService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
