@@ -10,5 +10,4 @@ public interface ManagerService {
     Managers getById(Long id);
     void save(Managers managers);
     void delete(Long id);
-    List<Managers> getAllDeputy();
-}
+   }
