@@ -31,6 +31,7 @@ public class RestManagerDto {
         managerDto.setFirstname(convertToClientDto(managers.getFirstname()));
         return managerDto;
     }
+
     private ClientDto convertToClientDto(Clients clients) {
         return modelMapper.mapModels(clients, ClientDto.class);
     }

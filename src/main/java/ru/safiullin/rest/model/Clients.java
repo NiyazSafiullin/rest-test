@@ -22,7 +22,7 @@ public class Clients {
     private String legaladdress;
 
     @Column(name = "managerid")
-    private String managerid;
+    private int managerid;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
