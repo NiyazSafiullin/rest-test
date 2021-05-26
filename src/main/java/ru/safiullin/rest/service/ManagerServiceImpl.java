@@ -30,4 +30,5 @@ public class ManagerServiceImpl implements ManagerService {
     public void delete(Long id) {
         managerRepository.delete(id);
     }
+
 }

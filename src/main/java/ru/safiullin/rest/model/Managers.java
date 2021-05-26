@@ -27,6 +27,9 @@ public class Managers {
     @Column(name = "firstname")
     private String firstname;
 
+    @Column(name = "deputy")
+    private String deputy;
+
     @CreationTimestamp
     private LocalDateTime createdDateTime;
     @ManyToOne(fetch = FetchType.LAZY)
