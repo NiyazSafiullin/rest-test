@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ManagerRepository extends JpaRepository<Managers, Long> {
     @Query("SELECT t FROM Managers t WHERE t.deputy = ?1 AND t.deputy = ?2")
-    List<Managers> findByDeputy(String deputy);
+    List<Managers> findByDeputy();
 }

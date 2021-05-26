@@ -31,5 +31,10 @@ public class ManagerServiceImpl implements ManagerService {
         managerRepository.delete(id);
     }
 
+    @Override
+    public List<Managers> getManagersListDeputy() {
+        return managerRepository.findByDeputy();
+    }
+
 
 }
