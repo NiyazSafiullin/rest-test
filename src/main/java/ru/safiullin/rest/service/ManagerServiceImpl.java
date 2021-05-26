@@ -25,4 +25,9 @@ public class ManagerServiceImpl implements ManagerService {
     public void save(Managers managers) {
         managerRepository.save(managers);
     }
+
+    @Override
+    public void delete(Long id) {
+        managerRepository.delete(id);
+    }
 }
