@@ -35,7 +35,7 @@ public class RestManagers {
 
 //    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<List<Managers>> getAllManagersDeputy() {
-//        List<Managers> managers = this.managerService.getManagersListDeputy();
+//        List<Managers> managers = this.managerService.findByDeputy();
 //
 //        if (managers.isEmpty()) {
 //            return new ResponseEntity<>(HttpStatus.NOT_FOUND);

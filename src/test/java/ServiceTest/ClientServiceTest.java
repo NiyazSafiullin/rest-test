@@ -6,7 +6,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.safiullin.rest.model.Clients;
 import ru.safiullin.rest.repository.ClientRepository;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class ClientServiceTest {
@@ -16,14 +19,16 @@ public class ClientServiceTest {
     @Test
     public void testGetByIdFromDb() {
         Clients clients = clientRepository.getById(1L);//из базы
-        assertThat(clients.getId()).isEqualTo(1);
+        assertEquals(clients.getId(),1);
     }
 
     @Test
     public void testSaveAndGet() {
-        clientRepository.getById(new Clients("Ivan", "Sidorov", "Mira",1));
-        Clients fromDb = clientRepository.getById(1);
-        assertThat(fromDb.getId()).isEqualTo(1);
+        List<Clients> actual = new ArrayList<>();
+        actual.add(new Clients("Alex", "Kazan st dobra 1", 1, 2L, "Admin"));
+
+        Clients fromDb = clientRepository.getById(2L);
+        assertEquals(actual, fromDb);
 
     }
 }

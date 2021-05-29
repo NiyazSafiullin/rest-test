@@ -1,9 +1,7 @@
 package ru.safiullin.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +10,8 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Table(name = "clients")
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Clients {
 
@@ -29,6 +29,7 @@ public class Clients {
     private Long id;
 
     private String role="ROLE_USER";
+
     //private boolean locked=false;
 
 

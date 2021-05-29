@@ -32,7 +32,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public List<Managers> getManagersListDeputy() {
+    public List<Managers> findByDeputy() {
         return managerRepository.findByDeputy();
     }
 
