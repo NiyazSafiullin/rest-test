@@ -29,7 +29,7 @@ public class Clients {
     private Long id;
 
     private String role="ROLE_USER";
-    private boolean locked=false;
+    //private boolean locked=false;
 
 
 }

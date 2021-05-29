@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.safiullin.rest.model.Clients;
 import ru.safiullin.rest.service.ClientService;
@@ -21,19 +22,31 @@ public class RestClients {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Clients> getClients(@PathVariable("id") Long clientId) {
-         if (clientId == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        try {
+            if (clientId == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            Clients clients = this.clientService.getById(clientId);
+            if (clients == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(clients, HttpStatus.OK);
+
+        } catch (Exception ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Client Not Found", ex);
         }
 
-        Clients clients = this.clientService.getById(clientId);
-        if (clients == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(clients,HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Clients> saveClient(@RequestBody @Validated Clients clients) {
+        try {
+            clientService.save(clients);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Client Not Found", ex);
+        }
         HttpHeaders headers = new HttpHeaders();
 
         if (clients == null) {
@@ -46,39 +59,51 @@ public class RestClients {
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Clients>> getAllClients() {
-        List<Clients> clients = this.clientService.getAll();
+        try {
+            List<Clients> clients = this.clientService.getAll();
 
-        if (clients.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            if (clients.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            return new ResponseEntity<>(clients, HttpStatus.OK);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Client Not Found", ex);
         }
 
-        return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Clients> updateClient(@RequestBody @Validated Clients clients, UriComponentsBuilder builder) {
-        HttpHeaders headers = new HttpHeaders();
+        try {
+            HttpHeaders headers = new HttpHeaders();
 
-        if (clients == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            if (clients == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+            this.clientService.save(clients);
+
+            return new ResponseEntity<>(clients, headers, HttpStatus.OK);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Client Not Found", ex);
         }
 
-        this.clientService.save(clients);
-
-        return new ResponseEntity<>(clients, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Clients> deleteClient(@PathVariable("id") Long id) {
-        Clients clients = this.clientService.getById(id);
-
-        if (clients == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        this.clientService.delete(id);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+//    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    public ResponseEntity<Clients> deleteClient(@PathVariable("id") Long id) {
+//        Clients clients = this.clientService.getById(id);
+//
+//        if (clients == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//        this.clientService.delete(id);
+//
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
 }

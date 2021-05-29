@@ -27,12 +27,15 @@ public class RestManagerDto {
     }
 
     private ManagerDto convertToManagerDto(Managers managers) {
-        ManagerDto managerDto = modelMapper.mapModels(managers, ManagerDto.class);
-        managerDto.setFirstname(convertToClientDto(managers.getFirstname()));
-        return managerDto;
+//        ManagerDto managerDto = modelMapper.mapModels(managers, ManagerDto.class);
+//        managerDto.setFirstname(convertToClientDto(managers.getFirstname()));
+//        return managerDto;
+        return null;
     }
 
     private ClientDto convertToClientDto(Clients clients) {
-        return modelMapper.mapModels(clients, ClientDto.class);
+
+        //return modelMapper.mapModels(clients, ClientDto.class);
+        return null;
     }
 }

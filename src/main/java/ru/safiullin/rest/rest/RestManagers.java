@@ -33,16 +33,16 @@ public class RestManagers {
         return new ResponseEntity<>(managers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Managers>> getAllManagersDeputy() {
-        List<Managers> managers = this.managerService.getManagersListDeputy();
-
-        if (managers.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(managers, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<List<Managers>> getAllManagersDeputy() {
+//        List<Managers> managers = this.managerService.getManagersListDeputy();
+//
+//        if (managers.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//        return new ResponseEntity<>(managers, HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Managers> getManagers(@PathVariable("id") Long managerId) {

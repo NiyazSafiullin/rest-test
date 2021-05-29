@@ -15,7 +15,7 @@ public class ClientDto {
     private String legaladdress;
     private String managerid;
     private String role="ROLE_USER";
-    private boolean locked=false;
+    //private boolean locked=false;
     @JsonProperty("clients")
     ManagerDto managerDto;
 }
