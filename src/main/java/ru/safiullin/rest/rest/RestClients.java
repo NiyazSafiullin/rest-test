@@ -33,7 +33,7 @@ public class RestClients {
             }
             return new ResponseEntity<>(clients, HttpStatus.OK);
 
-        } catch (Exception ex) {
+        } catch (ClientNotFoundException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Client Not Found", ex);
         }
@@ -68,7 +68,7 @@ public class RestClients {
             }
 
             return new ResponseEntity<>(clients, HttpStatus.OK);
-        } catch (Exception ex) {
+        } catch (ClientNotFoundException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Client Not Found", ex);
         }
@@ -87,7 +87,7 @@ public class RestClients {
             this.clientService.save(clients);
 
             return new ResponseEntity<>(clients, headers, HttpStatus.OK);
-        } catch (Exception ex) {
+        } catch (ClientNotFoundException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Client Not Found", ex);
         }
