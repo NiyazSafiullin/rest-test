@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.safiullin.rest.model.Clients;
 import ru.safiullin.rest.model.Managers;
+import ru.safiullin.rest.rest.exception.ManagerNotFoundException;
 import ru.safiullin.rest.service.ManagerService;
 
 import java.util.List;
@@ -23,7 +24,10 @@ public class RestManagers {
 
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Managers>> getAllManagers() {
+    public ResponseEntity<List<Managers>> getAllManagers() throws ManagerNotFoundException {
+        if (managerService.findByDeputy().isEmpty()) {
+           throw new ManagerNotFoundException("Managers not found deputy");
+        }
         List<Managers> managers = this.managerService.getAll();
 
         if (managers.isEmpty()) {
@@ -32,17 +36,6 @@ public class RestManagers {
 
         return new ResponseEntity<>(managers, HttpStatus.OK);
     }
-
-//    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<Managers>> getAllManagersDeputy() {
-//        List<Managers> managers = this.managerService.findByDeputy();
-//
-//        if (managers.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//
-//        return new ResponseEntity<>(managers, HttpStatus.OK);
-//    }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Managers> getManagers(@PathVariable("id") Long managerId) {

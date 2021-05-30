@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.safiullin.rest.model.Clients;
+import ru.safiullin.rest.rest.exception.ClientNotFoundException;
 import ru.safiullin.rest.service.ClientService;
 
 import java.util.List;
@@ -40,10 +41,10 @@ public class RestClients {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Clients> saveClient(@RequestBody @Validated Clients clients) {
+    public ResponseEntity<Clients> saveClient(@RequestBody @Validated Clients clients) throws Exception {
         try {
             clientService.save(clients);
-        } catch (Exception ex) {
+        } catch (ClientNotFoundException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Client Not Found", ex);
         }
@@ -67,7 +68,7 @@ public class RestClients {
             }
 
             return new ResponseEntity<>(clients, HttpStatus.OK);
-        } catch (Exception ex) {
+        } catch (ClientNotFoundException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Client Not Found", ex);
         }
@@ -86,7 +87,7 @@ public class RestClients {
             this.clientService.save(clients);
 
             return new ResponseEntity<>(clients, headers, HttpStatus.OK);
-        } catch (Exception ex) {
+        } catch (ClientNotFoundException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Client Not Found", ex);
         }
